@@ -11,7 +11,7 @@ export const registerCompany = async (req, res) => {
         let company = await Company.findOne({ name: companyName });
         if (company) {
             return res.status(400).json({
-                message: "Company already exists cannot register same comapny again",
+                message: "Company already exists cannot register same company again",
                 success: false,
             })
         };
@@ -21,7 +21,7 @@ export const registerCompany = async (req, res) => {
             userId: req.id,
         })
         return res.status(201).json({
-            message: "Comapny registered successfully",
+            message: "Company registered successfully",
             company,
             success: true,
         })
