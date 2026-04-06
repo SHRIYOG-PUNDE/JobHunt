@@ -134,7 +134,7 @@ const Signup = () => {
                                 />
                             </div>
                         </div>
-                        <Button type='submit' className='w-full my-4'>Sign Up</Button>
+                        <Button type='submit' className='w-full my-4 h-11'>Sign Up</Button>
                         <span className='text-sm'>Already have an account? <Link to="/login" className='text-blue-600'>Login</Link></span>
                     </form>
                 </div>
