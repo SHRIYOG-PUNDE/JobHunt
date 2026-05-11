@@ -17,7 +17,7 @@ const Signup = () => {
     email:"",
     password:"",
     phonenumber:"",
-    fullName:"",
+    fullname:"",
     role:"",
     file:"",
   });
@@ -33,7 +33,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("fullname", input.fullName);
+    formData.append("fullname", input.fullname);
     formData.append("email", input.email);
     formData.append("phonenumber", input.phonenumber);
     formData.append("password", input.password);
@@ -71,8 +71,8 @@ const Signup = () => {
                             <Label className='mb-2'>Full Name</Label>
                             <Input
                                 type="text"
-                                value={input.fullName}
-                                name="fullName"
+                                value={input.fullname}
+                                name="fullname"
                                 onChange={changeEventHandler}
                                 placeholder="Shriyog Punde"
                             />
