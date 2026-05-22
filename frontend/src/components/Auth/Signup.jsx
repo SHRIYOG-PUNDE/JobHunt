@@ -22,7 +22,7 @@ const Signup = () => {
     role:"",
     file:"",
   });
-  const loading = useSelector(store=>store.auth);
+  const {loading} = useSelector(store=>store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const changeEventHandler = (e) =>{

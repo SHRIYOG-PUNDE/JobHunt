@@ -16,9 +16,9 @@ export const postJob = async (req, res) => {
             requirments: requirments.split(","),
             salary:Number(salary),
             location,
-            experienceLevel:experience,
+            experienceLevel: Number(experience),
             jobType,
-            position,
+            position: Number(position),
             company:companyId,
             created_by:userId,
         })
@@ -61,7 +61,9 @@ export const getAllJobs = async (req, res) => {
 export const getJobById = async (req, res) => {
     try {
         const jobId = req.params.id;
-        const job = await Job.findById(jobId);
+        const job = await Job.findById(jobId).populate({
+            path:"applications"
+        });
         if(!job){
             return res.status(404).json({
                 message:"Job not found",
