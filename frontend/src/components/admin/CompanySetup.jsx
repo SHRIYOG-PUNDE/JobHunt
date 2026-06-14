@@ -57,6 +57,15 @@ const CompanySetup = () => {
             setLoading(false);
         }
     }
+    useEffect(() => {
+        setInput({
+            name: "",
+        description: "",
+        website: "",
+        location: "",
+        file: null
+        })
+    })
     return (
         <div>
             <NavBar />
