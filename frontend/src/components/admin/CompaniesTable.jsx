@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
@@ -6,7 +6,17 @@ import { Edit2, MoreHorizontal } from 'lucide-react'
 import { useSelector } from 'react-redux'
 
 const CompaniesTable = () => {
-    const { companies } = useSelector(store => store.company)
+    const { companies, searchCompanyByText } = useSelector(store => store.company);
+    const [ filterCompany, setFilterCompany ] = useState(companies);
+    useEffect(()=>{
+        const filteredCompany = companies && companies.length >= 0 && companies.filter((company)=>{
+            if(!searchCompanyByText){
+                return true;
+            }
+            return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
+        });
+        setFilterCompany(filteredCompany);
+    },[companies, searchCompanyByText]);
     return (
         <div>
             <Table>
@@ -21,11 +31,11 @@ const CompaniesTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        companies?.map((company) => (
+                        filterCompany?.map((company) => (
                             <tr>
                                 <TableCell>
                                     <Avatar>
-                                        <AvatarImage src={company.logo} />
+                                        <AvatarImage src={company.logo || "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"} />
                                     </Avatar>
                                 </TableCell>
                                 <TableCell>{company.name}</TableCell>
