@@ -9,8 +9,11 @@ import NavBar from '../shared/NavBar'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import useGetCompanyById from '@/hooks/useGetCompanyById'
 
 const CompanySetup = () => {
+    const params = useParams();
+    useGetCompanyById(params.id)
     const [input, setInput] = useState({
         name: "",
         description: "",
@@ -20,7 +23,6 @@ const CompanySetup = () => {
     });
     const { singleCompany } = useSelector(store => store.company);
     const [loading, setLoading] = useState(false);
-    const params = useParams();
     const navigate = useNavigate();  
     const changeEventHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value })

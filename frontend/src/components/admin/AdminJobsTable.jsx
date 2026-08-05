@@ -6,12 +6,13 @@ import { Edit2, MoreHorizontal } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-const CompaniesTable = () => {
+const AdminJobsTable = () => {
     const { companies, searchCompanyByText } = useSelector(store => store.company);
-    const [ filterCompany, setFilterCompany ] = useState(companies);
+    const allAdminJobs = useSelector(store=>store.job)
+    const [ filterJobs, setFilterJobs ] = useState(companies);
     const navigate = useNavigate();
     useEffect(()=>{
-        const filteredCompany = companies && companies.length >= 0 && companies.filter((company)=>{
+        const filteredCompany = allAdminJobs && allAdminJobs.length >= 0 && allAdminJobs.filter((job)=>{
             if(!searchCompanyByText){
                 return true;
             }
@@ -22,11 +23,11 @@ const CompaniesTable = () => {
     return (
         <div>
             <Table>
-                <TableCaption>A list of your registered companies</TableCaption>
+                <TableCaption>A list of your recent posted jobs</TableCaption>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>Logo</TableHead>
-                        <TableHead>Name</TableHead>
+                        <TableHead>Company Name</TableHead>
+                        <TableHead>Role</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead className='text-right'>Action</TableHead>
                     </TableRow>
@@ -63,4 +64,4 @@ const CompaniesTable = () => {
     )
 }
 
-export default CompaniesTable
+export default AdminJobsTable
