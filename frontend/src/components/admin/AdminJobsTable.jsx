@@ -8,8 +8,8 @@ import { useNavigate } from 'react-router-dom'
 
 const AdminJobsTable = () => {
     const { companies, searchCompanyByText } = useSelector(store => store.company);
-    const allAdminJobs = useSelector(store=>store.job)
-    const [ filterJobs, setFilterJobs ] = useState(companies);
+    const {allAdminJobs} = useSelector(store=>store.job)
+    const [ filterJobs, setFilterJobs ] = useState(allAdminJobs);
     const navigate = useNavigate();
     useEffect(()=>{
         const filteredCompany = allAdminJobs && allAdminJobs.length >= 0 && allAdminJobs.filter((job)=>{
@@ -18,7 +18,7 @@ const AdminJobsTable = () => {
             }
             return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase());
         });
-        setFilterCompany(filteredCompany);
+        setFilterJobs(filteredCompany);
     },[companies, searchCompanyByText]);
     return (
         <div>
@@ -34,20 +34,21 @@ const AdminJobsTable = () => {
                 </TableHeader>
                 <TableBody>
                     {
-                        filterCompany?.map((company) => (
+                        filterJobs?.map((job) => (
                             <tr>
                                 <TableCell>
                                     <Avatar>
-                                        <AvatarImage src={company.logo || "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"} />
+                                        <AvatarImage src={job.logo || "https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1677509740.jpg"} />
                                     </Avatar>
                                 </TableCell>
-                                <TableCell>{company.name}</TableCell>
-                                <TableCell>{company.createdAt.split("T")[0]}</TableCell>
+                                <TableCell>{job?.company?.name}</TableCell>
+                                <TableCell>{job?.title}</TableCell>
+                                <TableCell>{job?.createdAt?.split("T")[0]}</TableCell>
                                 <TableCell className='text-right cursor-pointer'>
                                     <Popover>
                                         <PopoverTrigger><MoreHorizontal /></PopoverTrigger>
                                         <PopoverContent className='w-32'>
-                                            <div onClick={()=> navigate(`/admin/companies/${company._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
+                                            <div onClick={()=> navigate(`/admin/companies/${job._id}`)} className='flex items-center gap-2 w-fit cursor-pointer'>
                                                 <Edit2 className='w-4' />
                                                 <span>Edit</span>
                                             </div>
